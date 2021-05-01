@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-23 15:21:44
- * @LastEditTime: 2021-05-01 20:52:22
+ * @LastEditTime: 2021-05-01 23:42:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /envi-ux/Users/chenglei/work/dapp-demo/src/views/TodoList/index.vue
@@ -12,6 +12,12 @@
             <el-row>
                 <el-col :span="12" :offset="6">
                     <el-form ref="form" :model="form" label-width="80px" @submit.prevent="() => false">
+                        <el-form-item label="账户地址">
+                            <div>{{ account }}</div>
+                        </el-form-item>
+                        <el-form-item label="账户余额">
+                            {{ balance }}
+                        </el-form-item>
                         <el-form-item label="任务名称">
                             <el-input @keyup.enter="createTask(inputVlaue)" v-model="inputVlaue"></el-input>
                         </el-form-item>
@@ -62,7 +68,9 @@ export default defineComponent({
     setup() {
         let web3 = null
         let MyContract = null
-        let acccounts
+        let acccounts = null
+        const account = ref('')
+        const balance = ref('')
         const form = reactive({
             inputVlaue: '',
             todoList: []
@@ -89,6 +97,8 @@ export default defineComponent({
                 form.todoList.push(task)
             }
         }
+
+        // 创建任务
         const createTask = async v => {
             try {
                 await MyContract.methods.createTask(v).send({ from: acccounts })
@@ -118,13 +128,29 @@ export default defineComponent({
             return R.filter(R.propEq('completed', true), form.todoList).length
         })
 
+        // 完成任务
         const toggleCompleted = async id => {
             await MyContract.methods.toggleCompleted(id).send({ from: acccounts })
             loadTodoList()
         }
         // 设置meatmask账户
-        const setAcccounts = async () => {
-            acccounts = await web3.eth.getCoinbase()
+        const getAcccounts = async () => {
+            const acc = await web3.eth.getAccounts()
+            if (acc.length > 0) {
+                acccounts = acc[0]
+                console.log(acccounts)
+                account.value = acc[0]
+                console.log(account)
+            } else {
+                console.error('无账户')
+            }
+        }
+
+        // 获取区块余额
+        const getBalance = async () => {
+            const address = MyContract.options.address
+            const bal = await web3.eth.getBalance(address)
+            balance.value = bal
         }
         const web3Action = {
             initWeb3: async () => {
@@ -144,9 +170,17 @@ export default defineComponent({
                 } else if (window.web3) {
                     window.web3Provider = window.web3.currentProvider
                 } else {
-                    window.web3Provider = window.Web3.providers.HttpProvider('http://127.0.0.1:8485')
+                    window.web3Provider = new window.Web3(
+                        new window.Web3.providers.HttpProvider(
+                            'https://kovan.infura.io/v3/adf650a437394a8fa2f142f1dc124e49'
+                        )
+                    )
                 }
-
+                // window.web3Provider = new window.Web3(
+                //     new window.Web3.providers.HttpProvider(
+                //         'https://kovan.infura.io/v3/adf650a437394a8fa2f142f1dc124e49'
+                //     )
+                // )
                 web3 = new window.Web3(window.web3Provider)
 
                 // Acccounts always exposed
@@ -156,7 +190,7 @@ export default defineComponent({
             },
             loadContract: async () => {
                 // Create a JavaScript version of the smart contract
-                MyContract = new web3.eth.Contract(todoAbi, '0x7F6EF77BEBc6ea547a056F8C759f7cf576CAAab1', {
+                MyContract = new web3.eth.Contract(todoAbi, '0xF950D21Cf40b42Bb916eB86BC69ae77DB4F773De', {
                     from: acccounts
                 })
                 // const balance = await web3.eth.getBalance(coinbase)
@@ -206,8 +240,9 @@ export default defineComponent({
         // }
         const loadweb3 = async () => {
             await web3Action.initWeb3()
-            await setAcccounts()
+            await getAcccounts()
             await web3Action.loadContract()
+            await getBalance()
             loadTodoList()
             // events()
             // await web3Action.loadAccount()
@@ -216,11 +251,14 @@ export default defineComponent({
         return {
             display,
             form,
+            balance,
             toggleCompleted,
             deleteList,
             createTask,
+            acccounts,
             changeDisplay,
             allNum,
+            account,
             noneNum,
             doneNum,
             ...toRefs(form)
