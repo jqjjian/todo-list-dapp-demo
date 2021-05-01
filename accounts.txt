@@ -1,0 +1,55 @@
+Ganache CLI v6.12.2 (ganache-core: 2.13.2)
+
+Available Accounts
+==================
+(0) 0xaD73dF0362414496Bb0a25360ea6fC692e7397B2 (100 ETH)
+(1) 0x52C46eBCE401614964613134baA184B901BebD8d (100 ETH)
+(2) 0x783dc77e4D7D3C7e9e4b3D5eE3ed6573313CeACF (100 ETH)
+(3) 0x1Ff67b9374D59C2c7DAa8afD1B0Fd8544B6b9149 (100 ETH)
+(4) 0xF22E54b962d978437A84675Ac5FFcE28fd53E050 (100 ETH)
+(5) 0x783908E53794f1f465532D1De49D2cEF9E6dE098 (100 ETH)
+(6) 0x3E7dDB6d9a934EAa4fA98835E2038F2Ee937F1Ae (100 ETH)
+(7) 0x8d63F6c56863d46165272FEb30a6E4431954A28a (100 ETH)
+(8) 0xE6ce364d776aF82D9d26953C5626653Cc8035240 (100 ETH)
+(9) 0x1950efB93120b07a17682b02a4534Ff282972Ef0 (100 ETH)
+
+Private Keys
+==================
+(0) 0x507521c1b0edee0d18307293b2ae1c6770e61ca0f3846cea9a7103a91a2f9335
+(1) 0x84acb36ce538a0e8e848a24d7ff212c0c7c595dec8dec0fab349cdd3fad8dcbf
+(2) 0x9ae4b91e8bad206d4e799b052f422f94c969083d5692a8c18f329e414c637f28
+(3) 0x0aebbb2c14ba5548d3f42b4347d1421de6b05d6e3fe6c5d48b46df50cb5c3d94
+(4) 0x20fe4c94b57b77004c05d4dc3a318edd29724f70feb510c9bb305a6cdb25f822
+(5) 0x01b8cf2160a185d4b427447717f71c83bc084ea9617bfc009f8649861ce1ef8c
+(6) 0x09beceb56f040f646cc4dd3aaf6a01d0dc4dac3c17a63c6abca6b825499520e1
+(7) 0xa98fb7381b31cf2f80b2325978b51c061de815b05593034c9d67a99082aa0883
+(8) 0x732f6dcef38d753c75e6b509623c87a3d02003d452f8fa8f7d8cfd9ea31c5557
+(9) 0xaa49881b6915736658a01f9f22a9b73f0bba9c075352c12ec5551e3f9278ee70
+
+HD Wallet
+==================
+Mnemonic:      sure art economy neutral middle pepper response squirrel nest spy top near
+Base HD Path:  m/44'/60'/0'/0/{account_index}
+
+Gas Price
+==================
+20000000000
+
+Gas Limit
+==================
+6721975
+
+Call Gas Limit
+==================
+9007199254740991
+
+Listening on 127.0.0.1:8545
+
+
+sausage history lake oil dinner glide sustain parent cargo flock cup miracle
+
+
+1。不可能三角
+pos机制 （置押）
+pow机制（工作量证明）
+奖励区块减半
